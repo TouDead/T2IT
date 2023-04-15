@@ -23,7 +23,7 @@ def format_bills(arr: list):
 if __name__ == '__main__':
     bills = [1000, 500, 200, 100, 50, 20, 10]
     required_amount = int(input(f"How much money do you want to withdraw? "
-                                f"(The amount must be a multiple of {min(bills)})"))
+                                f"(The amount must be a multiple of {min(bills)}): "))
 
     if required_amount % min(bills):
         print(f"The amount must be a multiple of {min(bills)}")

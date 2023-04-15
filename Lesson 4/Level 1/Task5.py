@@ -7,11 +7,12 @@ def find_bills(num: int, _bills: list[int]) -> list:
             break
 
         used = 10
-        while 1:
+        while num:
             if used == 0:
                 break
 
-            if ((_bill * used) < num and (_bill * used - num) % _bills[_id + 1] == 0) or (_bill * used) - num == 0:
+            if (_bill * used) - num == 0 or \
+                    ((_bill * used) < num and check_multiples((_bill * used - num), _bills[_id + 1:])):
                 num -= _bill * used
                 output.extend([_bill] * used)
                 break
@@ -19,6 +20,13 @@ def find_bills(num: int, _bills: list[int]) -> list:
             used -= 1
 
     return output
+
+
+def check_multiples(number: int, arr: list):
+    for n in arr:
+        if number % n == 0:
+            return True
+    return False
 
 
 def format_bills(arr: list):
@@ -31,8 +39,8 @@ def format_bills(arr: list):
 
 if __name__ == '__main__':
     bills = [10, 20, 50, 100, 200, 500, 1000]
-    required_amount = int(
-        input(f"How much money do you want to withdraw? (The amount must be a multiple of {min(bills)})"))
+    required_amount = int(input(f"How much money do you want to withdraw? "
+                                f"(The amount must be a multiple of {min(bills)}): "))
 
     if required_amount % min(bills) != 0:
         print(f"The amount must be a multiple of {min(bills)}")
